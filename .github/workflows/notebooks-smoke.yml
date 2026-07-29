@@ -1,14 +1,23 @@
-name: Smoke-проверка ноутбуков
+name: Явная smoke-проверка ноутбука
 
 on:
   workflow_dispatch:
     inputs:
       notebook:
-        description: "Необязательный путь к одному ноутбуку"
-        required: false
+        description: "Путь к одному ноутбуку относительно корня репозитория"
+        required: true
         type: string
-  schedule:
-    - cron: "30 3 * * 1"
+      profile:
+        description: "Профиль зависимостей"
+        required: true
+        default: classical
+        type: choice
+        options:
+          - classical
+          - deep-learning
+          - retrieval
+          - inference
+          - yolo
 
 permissions:
   contents: read
@@ -24,6 +33,7 @@ jobs:
     timeout-minutes: 30
     env:
       NOTEBOOK_PATH: ${{ inputs.notebook }}
+      NOTEBOOK_PROFILE: ${{ inputs.profile }}
     steps:
       - name: Получить исходный код
         uses: actions/checkout@v4
@@ -38,17 +48,37 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Установить CPU-зависимости ноутбуков
+      - name: Проверить lock-файл
+        run: uv lock --check
+
+      - name: Установить классический CPU-профиль
+        if: env.NOTEBOOK_PROFILE == 'classical'
         run: uv sync --frozen --group notebooks --extra cv
+
+      - name: Установить CPU-профиль глубокого обучения
+        if: env.NOTEBOOK_PROFILE == 'deep-learning'
+        run: >-
+          uv sync --frozen --group notebooks --extra cv
+          --extra torch-cpu --extra deep-learning
+
+      - name: Установить изолированный CPU-профиль YOLO
+        if: env.NOTEBOOK_PROFILE == 'yolo'
+        run: uv sync --frozen --group notebooks --extra torch-cpu --extra yolo
+
+      - name: Установить CPU-профиль retrieval
+        if: env.NOTEBOOK_PROFILE == 'retrieval'
+        run: >-
+          uv sync --frozen --group notebooks --extra cv --extra torch-cpu
+          --extra deep-learning --extra retrieval
+
+      - name: Установить CPU-профиль оптимизации инференса
+        if: env.NOTEBOOK_PROFILE == 'inference'
+        run: >-
+          uv sync --frozen --group notebooks --extra cv --extra torch-cpu
+          --extra deep-learning --extra inference
 
       - name: Статически проверить все ноутбуки
         run: uv run --no-sync python scripts/validate_notebooks.py
 
       - name: Исполнить явно выбранный ноутбук
-        if: env.NOTEBOOK_PATH != ''
         run: uv run --no-sync python scripts/smoke_notebooks.py "$NOTEBOOK_PATH"
-
-      - name: Исполнить ноутбуки с явной smoke-меткой
-        if: env.NOTEBOOK_PATH == ''
-        run: uv run --no-sync python scripts/smoke_notebooks.py
-

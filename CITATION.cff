@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Если вы используете курс или его части, процитируйте репозиторий и конкретный релиз."
 title: "Компьютерное зрение: от геометрии до мультимодальных моделей"
 type: software
-version: "1.0.0-rc1"
+version: "1.0.0"
 date-released: 2026-07-29
 license: Apache-2.0
 repository-code: "https://github.com/Gorod89/ITMO_study_CV_46"

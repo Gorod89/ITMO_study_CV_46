@@ -2,13 +2,13 @@
 
 [![CI](https://github.com/Gorod89/ITMO_study_CV_46/actions/workflows/ci.yml/badge.svg)](https://github.com/Gorod89/ITMO_study_CV_46/actions/workflows/ci.yml)
 [![Ноутбуки: smoke](https://github.com/Gorod89/ITMO_study_CV_46/actions/workflows/notebooks-smoke.yml/badge.svg)](https://github.com/Gorod89/ITMO_study_CV_46/actions/workflows/notebooks-smoke.yml)
-[![Версия](https://img.shields.io/badge/версия-v1.0.0--rc1-blue)](RELEASE_NOTES.md)
+[![Версия](https://img.shields.io/badge/версия-v1.0.0-blue)](RELEASE_NOTES.md)
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-blue)](pyproject.toml)
 [![Лицензия](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
 
 Открытый русскоязычный курс для подготовки ML-инженеров, способных спроектировать, измерить, воспроизвести и критически оценить систему компьютерного зрения. Курс идёт от классической обработки изображений и геометрии к transfer learning, детекции, сегментации, мультимодальным и генеративным моделям, оптимизации инференса и анализу рисков.
 
-> Состояние релиза: `v1.0.0-rc1`, техническая апробация. Статус «production-ready» присваивается только после CI, запуска smoke-наборов из чистого клона, методической экспертизы и пилота со студентами.
+> Состояние релиза: `v1.0.0`, стабильный выпуск курса. Версия фиксирует структуру материалов, окружение, команды, автоматические проверки и открытый CPU-smoke. Полные GPU-профили и педагогическая эффективность проверяются отдельно для конкретного учебного потока.
 
 ## Быстрый старт
 
@@ -17,6 +17,7 @@
 ```bash
 git clone https://github.com/Gorod89/ITMO_study_CV_46.git
 cd ITMO_study_CV_46
+git checkout v1.0.0
 make setup
 make test
 make smoke
@@ -64,7 +65,7 @@ make smoke
 ## Два режима воспроизведения
 
 - `open smoke` — малые открытые или процедурные данные, CPU, без секретов и закрытых весов; проверяет полный интерфейс конвейера.
-- `full` — полные датасеты и GPU-профили; применяется для учебных экспериментов и не входит в обязательный CI.
+- `full` — полные датасеты и GPU-профили; применяется для учебных экспериментов и проверяется преподавателем для выбранной конфигурации потока.
 
 Каждая новая работа должна иметь измеримые результаты обучения, вычислительный бюджет, фиксированный split, baseline, public tests, ожидаемые артефакты, рубрику, типичные ошибки и advanced track. Ноутбук служит интерфейсом эксперимента; повторно используемая логика размещается в Python-модулях.
 

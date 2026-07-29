@@ -1,6 +1,8 @@
 import json
+import os
 from pathlib import Path
 
+from scripts import smoke_notebooks
 from scripts.smoke_notebooks import is_marked_for_smoke, selected_notebooks
 from scripts.validate_notebooks import validate_notebook
 
@@ -53,6 +55,27 @@ def test_smoke_selection_requires_explicit_metadata(tmp_path: Path) -> None:
     assert is_marked_for_smoke(marked)
     assert selected_notebooks([], root=tmp_path) == [marked]
     assert selected_notebooks([regular], root=tmp_path) == [regular]
+
+
+def test_smoke_cli_fails_when_nothing_is_selected(monkeypatch, capsys) -> None:
+    monkeypatch.setattr(smoke_notebooks, "selected_notebooks", lambda paths: [])
+
+    assert smoke_notebooks.main([]) == 2
+    assert "не выбраны" in capsys.readouterr().err
+
+
+def test_notebook_runtime_uses_temporary_writable_directories() -> None:
+    before = {name: os.environ.get(name) for name in smoke_notebooks.ISOLATED_ENVIRONMENT_VARIABLES}
+
+    with smoke_notebooks.isolated_notebook_environment() as root:
+        for name in smoke_notebooks.ISOLATED_ENVIRONMENT_VARIABLES:
+            configured = Path(os.environ[name])
+            assert configured.is_dir()
+            assert configured.is_relative_to(root)
+
+    assert {
+        name: os.environ.get(name) for name in smoke_notebooks.ISOLATED_ENVIRONMENT_VARIABLES
+    } == before
 
 
 def test_local_path_and_secret_are_errors(tmp_path: Path) -> None:

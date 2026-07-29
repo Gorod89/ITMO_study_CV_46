@@ -4,26 +4,30 @@ build-backend = "hatchling.build"
 
 [project]
 name = "itmo-cv-coursekit"
-version = "0.1.0"
+version = "1.0.0"
 description = "Инструменты воспроизводимости для курса ИТМО по компьютерному зрению"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 license = { file = "LICENSE" }
 dependencies = [
-    "numpy>=1.26,<3",
+    "numpy>=1.26,<2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "numpy>=1.26,<3; sys_platform != 'darwin' or platform_machine != 'x86_64'",
     "pillow>=10.3,<13",
 ]
 
 [project.optional-dependencies]
 cv = [
     "matplotlib>=3.8,<4",
-    "opencv-python-headless>=4.9,<5",
+    "opencv-contrib-python-headless>=4.9,<5",
+    "pandas>=2.2,<4",
     "scikit-image>=0.22,<0.26",
     "scikit-learn>=1.4,<1.9",
 ]
 torch-cpu = [
-    "torch>=2.7,<3",
-    "torchvision>=0.22,<1",
+    "torch==2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "torch>=2.7,<3; sys_platform != 'darwin' or platform_machine != 'x86_64'",
+    "torchvision==0.17.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "torchvision>=0.22,<1; sys_platform != 'darwin' or platform_machine != 'x86_64'",
 ]
 deep-learning = [
     "accelerate>=1.2,<3",
@@ -32,6 +36,17 @@ deep-learning = [
     "timm>=1.0,<2",
     "torchmetrics>=1.4,<2",
     "transformers>=4.48,<6",
+]
+retrieval = [
+    "faiss-cpu>=1.9,<2",
+]
+inference = [
+    "onnxruntime==1.23.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "onnxruntime>=1.20,<2; sys_platform != 'darwin' or platform_machine != 'x86_64'",
+]
+yolo = [
+    "pyyaml>=6,<7",
+    "ultralytics>=8.3,<9",
 ]
 
 [dependency-groups]

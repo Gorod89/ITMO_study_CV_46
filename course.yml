@@ -2,10 +2,11 @@ course:
   id: cv-46
   title: "Компьютерное зрение"
   language: ru
-  version: "1.0.0-rc1"
+  version: "1.0.0"
+  release_status: stable
   status: technical-validation
   python: ">=3.11,<3.13"
-  semester_snapshot: "2026-fall-rc"
+  planned_semester_snapshot: "2026-fall"
   outcomes:
     - "Спроектировать воспроизводимый эксперимент компьютерного зрения."
     - "Выбрать и оценить классический, глубокий или мультимодальный метод."
@@ -27,11 +28,18 @@ course:
       path: block4_up_to_date_CV
       weeks: [17, 24]
       status: technical-validation
-  release_gates:
+  technical_release_gates:
     - repository-validation
     - unit-tests
     - notebook-structure
     - cpu-smoke
     - license-review
-    - pedagogical-review
-    - student-pilot
+    - documentation-build
+    - assessment-security
+  post_release_validation:
+    full-gpu-profile-review: pending
+    external-dataset-checksums: pending
+    closed-instructor-repository: pending
+    methodological-review: pending
+    student-pilot: pending
+    semester-snapshot: pending

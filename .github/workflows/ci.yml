@@ -36,8 +36,11 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Проверить lock-файл и установить только лёгкое окружение
-        run: uv sync --frozen --python "${{ matrix.python-version }}" --group dev
+      - name: Проверить lock-файл
+        run: uv lock --check
+
+      - name: Установить лёгкое окружение разработки и документации
+        run: uv sync --frozen --python "${{ matrix.python-version }}" --group dev --group docs
 
       - name: Проверить форматирование и стиль
         run: |
@@ -47,8 +50,40 @@ jobs:
       - name: Запустить модульные тесты
         run: uv run --no-sync pytest
 
+      - name: Выполнить открытый CPU smoke без сети и GPU
+        run: uv run --no-sync python scripts/smoke_open_pipeline.py
+
       - name: Проверить структуру репозитория и ноутбуков
         run: uv run --no-sync python scripts/validate_repository.py
 
-      - name: Проверить локальные ссылки документации
-        run: uv run --no-sync python scripts/validate_markdown_links.py
+      - name: Проверить и строго собрать документацию
+        run: |
+          uv run --no-sync python scripts/validate_markdown_links.py
+          uv run --no-sync mkdocs build --strict
+
+  notebook-smoke:
+    name: Отмеченные CPU smoke-ноутбуки
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Получить исходный код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Установить uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Проверить lock-файл
+        run: uv lock --check
+
+      - name: Установить лёгкий notebook/CV-профиль
+        run: uv sync --frozen --python 3.11 --group notebooks --extra cv
+
+      - name: Исполнить все отмеченные smoke-ноутбуки
+        run: uv run --no-sync python scripts/smoke_notebooks.py
