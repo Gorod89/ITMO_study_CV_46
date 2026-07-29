@@ -1,0 +1,54 @@
+name: Smoke-проверка ноутбуков
+
+on:
+  workflow_dispatch:
+    inputs:
+      notebook:
+        description: "Необязательный путь к одному ноутбуку"
+        required: false
+        type: string
+  schedule:
+    - cron: "30 3 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notebooks-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Ограниченное исполнение
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NOTEBOOK_PATH: ${{ inputs.notebook }}
+    steps:
+      - name: Получить исходный код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Установить uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Установить CPU-зависимости ноутбуков
+        run: uv sync --frozen --group notebooks --extra cv
+
+      - name: Статически проверить все ноутбуки
+        run: uv run --no-sync python scripts/validate_notebooks.py
+
+      - name: Исполнить явно выбранный ноутбук
+        if: env.NOTEBOOK_PATH != ''
+        run: uv run --no-sync python scripts/smoke_notebooks.py "$NOTEBOOK_PATH"
+
+      - name: Исполнить ноутбуки с явной smoke-меткой
+        if: env.NOTEBOOK_PATH == ''
+        run: uv run --no-sync python scripts/smoke_notebooks.py
+

@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.0
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: validate-notebooks
+        name: Проверка структуры Jupyter-ноутбуков
+        entry: uv run --group dev python scripts/validate_notebooks.py
+        language: system
+        files: '\.ipynb$'
+        pass_filenames: true
+      - id: validate-repository
+        name: Проверка структуры репозитория
+        entry: uv run --group dev python scripts/validate_repository.py
+        language: system
+        pass_filenames: false

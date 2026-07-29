@@ -1,0 +1,30 @@
+name: Ошибка или невоспроизводимость
+description: Сообщить о сломанной команде, ноутбуке, ссылке или результате
+title: "[Ошибка] "
+labels: ["bug"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Версия/commit
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Минимальные шаги воспроизведения
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Окружение
+      description: ОС, Python, CPU/GPU, provider и релевантные версии.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Ожидаемый и фактический результат
+    validations:
+      required: true

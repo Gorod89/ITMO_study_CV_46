@@ -1,0 +1,19 @@
+# Научные статьи
+
+| Название | Аннотация | Связанные КИМ | Доступ | Лицензия / условия | Дата проверки |
+|---|---|---|---|---|---|
+| Krähenbühl P., Koltun V. Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials. NeurIPS 2011 | Первоисточник DenseCRF | ЛР1 | [arXiv:1210.5644](https://arxiv.org/abs/1210.5644) | arXiv, открытый доступ | 2026-07-27 |
+| Dosovitskiy A. et al. An Image is Worth 16x16 Words (ViT). ICLR 2021 | Первоисточник Vision Transformer | ЛР2 | [arXiv:2010.11929](https://arxiv.org/abs/2010.11929) | arXiv, открытый доступ | 2026-07-27 |
+| Liu Z. et al. A ConvNet for the 2020s (ConvNeXt). CVPR 2022 | Современная CNN, сопоставимая с трансформерами | ЛР2 | [arXiv:2201.03545](https://arxiv.org/abs/2201.03545) | arXiv, открытый доступ | 2026-07-27 |
+| Schroff F. et al. FaceNet: A Unified Embedding... (triplet loss). CVPR 2015 | Триплетная функция потерь и метрическое обучение | ЛР3 | [arXiv:1503.03832](https://arxiv.org/abs/1503.03832) | arXiv, открытый доступ | 2026-07-27 |
+| Deng J. et al. ArcFace: Additive Angular Margin Loss. CVPR 2019 | Угловой margin для обучения эмбеддингов | ЛР3 | [arXiv:1801.07698](https://arxiv.org/abs/1801.07698) | arXiv, открытый доступ | 2026-07-27 |
+| Radford A. et al. Learning Transferable Visual Models From Natural Language Supervision (CLIP). ICML 2021 | Мультимодальное контрастивное обучение, основа ЛР4 | ЛР4 | [arXiv:2103.00020](https://arxiv.org/abs/2103.00020) | arXiv, открытый доступ | 2026-07-27 |
+| Ho J. et al. Denoising Diffusion Probabilistic Models. NeurIPS 2020 | Первоисточник DDPM | ЛР6 | [arXiv:2006.11239](https://arxiv.org/abs/2006.11239) | arXiv, открытый доступ | 2026-07-27 |
+| Rombach R. et al. High-Resolution Image Synthesis with Latent Diffusion Models. CVPR 2022 | Латентная диффузия (Stable Diffusion), основа генерации в ЛР6 | ЛР6 | [arXiv:2112.10752](https://arxiv.org/abs/2112.10752) | arXiv, открытый доступ | 2026-07-27 |
+| Kirillov A. et al. Segment Anything. ICCV 2023 (A*) | Promptable segmentation и ограничения zero-shot-переноса | frontier-семинар | [CVF Open Access](https://openaccess.thecvf.com/content/ICCV2023/html/Kirillov_Segment_Anything_ICCV_2023_paper.html) | статья открыта; код/веса и SA-1B имеют разные условия | 2026-07-29 |
+| Zhao Y. et al. DETRs Beat YOLOs on Real-time Object Detection. CVPR 2024 (A*) | NMS-free детектор и связь архитектуры с измеренной задержкой | ЛР5 / advanced | [CVF Open Access](https://openaccess.thecvf.com/content/CVPR2024/html/Zhao_DETRs_Beat_YOLOs_on_Real-time_Object_Detection_CVPR_2024_paper.html) | статья открыта; код Apache-2.0 | 2026-07-29 |
+| Zhao T. et al. Grounding DINO. ECCV 2024 (A*) | Open-vocabulary detection с текстовыми запросами | ЛР4 / advanced | [ECVA](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/06319.pdf) | статья открыта; код Apache-2.0 | 2026-07-29 |
+| Ravi N. et al. SAM 2. ICLR 2025 (A*) | Единая promptable-сегментация изображений и видео с памятью | frontier-семинар | [ICLR proceedings](https://proceedings.iclr.cc/paper_files/paper/2025/file/45c1f6a8cbf2da59ebf2c802b4f742cd-Paper-Conference.pdf) | проверять отдельно код, веса и данные | 2026-07-29 |
+| Li L. et al. COUNTS. CVPR 2025 (A*) | Fine-grained OOD для детекторов и мультимодальных моделей | модуль надёжности | [CVF Open Access](https://openaccess.thecvf.com/content/CVPR2025/html/Li_COUNTS_Benchmarking_Object_Detectors_and_Multimodal_Large_Language_Models_under_CVPR_2025_paper.html) | статья открыта; данные требуют отдельной проверки | 2026-07-29 |
+
+Полный ежегодный обзор, рейтинг ICORE2026, учебные результаты, CPU smoke-профили и лицензионные оговорки находятся в документе [«Актуализация по CORE A/A*»](../../../docs/frontier-core-a.md). Статьи 2026 года со статусом `watchlist` используются только на семинарах, пока официальный код, checkpoint и бюджет не прошли локальную проверку.

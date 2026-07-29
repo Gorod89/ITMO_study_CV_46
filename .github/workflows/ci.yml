@@ -1,0 +1,54 @@
+name: Быстрые проверки
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - name: Получить исходный код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Установить uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Проверить lock-файл и установить только лёгкое окружение
+        run: uv sync --frozen --python "${{ matrix.python-version }}" --group dev
+
+      - name: Проверить форматирование и стиль
+        run: |
+          uv run --no-sync ruff format --check coursekit scripts tests
+          uv run --no-sync ruff check coursekit scripts tests
+
+      - name: Запустить модульные тесты
+        run: uv run --no-sync pytest
+
+      - name: Проверить структуру репозитория и ноутбуков
+        run: uv run --no-sync python scripts/validate_repository.py
+
+      - name: Проверить локальные ссылки документации
+        run: uv run --no-sync python scripts/validate_markdown_links.py

@@ -1,0 +1,50 @@
+site_name: "Компьютерное зрение CV-46"
+site_description: "Воспроизводимый русскоязычный курс компьютерного зрения"
+site_url: "https://gorod89.github.io/ITMO_study_CV_46/"
+repo_url: "https://github.com/Gorod89/ITMO_study_CV_46"
+repo_name: "Gorod89/ITMO_study_CV_46"
+docs_dir: docs
+strict: true
+
+theme:
+  name: material
+  language: ru
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Главная: index.md
+  - Установка: setup.md
+  - Программа: rpd.md
+  - Студентам: guidelines-students.md
+  - Преподавателям:
+      - Методика: guidelines-teachers.md
+      - Безопасность оценивания: assessment-security.md
+  - Воспроизводимость: reproducibility.md
+  - Статус внедрения: implementation-status.md
+  - Оценивание:
+      - Экзамен, семестр 1: exam-s1.md
+      - Курсовой проект, семестр 2: coursework-s2.md
+  - Научная актуализация CORE A/A*: frontier-core-a.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+
+plugins:
+  - search:
+      lang:
+        - ru
+        - en

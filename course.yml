@@ -1,0 +1,37 @@
+course:
+  id: cv-46
+  title: "Компьютерное зрение"
+  language: ru
+  version: "1.0.0-rc1"
+  status: technical-validation
+  python: ">=3.11,<3.13"
+  semester_snapshot: "2026-fall-rc"
+  outcomes:
+    - "Спроектировать воспроизводимый эксперимент компьютерного зрения."
+    - "Выбрать и оценить классический, глубокий или мультимодальный метод."
+    - "Измерить качество, системную стоимость, устойчивость и риски."
+  blocks:
+    - id: block-1
+      path: block1_intro_to_VC
+      weeks: [1, 5]
+      status: content-complete
+    - id: block-2
+      path: block2_CV_technologies
+      weeks: [6, 10]
+      status: content-complete
+    - id: block-3
+      path: block3_DL_in_CV_base
+      weeks: [11, 16]
+      status: technical-validation
+    - id: block-4
+      path: block4_up_to_date_CV
+      weeks: [17, 24]
+      status: technical-validation
+  release_gates:
+    - repository-validation
+    - unit-tests
+    - notebook-structure
+    - cpu-smoke
+    - license-review
+    - pedagogical-review
+    - student-pilot

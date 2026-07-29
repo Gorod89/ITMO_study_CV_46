@@ -1,0 +1,41 @@
+schema_version: 1
+last_reviewed: 2026-07-29
+policy: >
+  Лицензии кода, весов и данных проверяются раздельно. Запись здесь не заменяет
+  LICENSE/NOTICE конкретного ресурса и не разрешает зеркалирование данных.
+resources:
+  - id: numpy
+    kind: code
+    url: https://github.com/numpy/numpy
+    license: BSD-3-Clause
+    used_for: "численные операции coursekit и smoke"
+  - id: pillow
+    kind: code
+    url: https://github.com/python-pillow/Pillow
+    license: HPND
+    used_for: "чтение и генерация изображений"
+  - id: pytorch
+    kind: code
+    url: https://github.com/pytorch/pytorch
+    license: BSD-3-Clause
+    used_for: "полные профили глубокого обучения"
+  - id: torchvision
+    kind: code
+    url: https://github.com/pytorch/vision
+    license: BSD-3-Clause
+    used_for: "модели, преобразования и адаптеры датасетов"
+  - id: segment-anything
+    kind: code-and-weights
+    url: https://github.com/facebookresearch/segment-anything
+    license: Apache-2.0
+    caveat: "SA-1B Dataset имеет отдельную Research License и не включается."
+  - id: grounding-dino
+    kind: code
+    url: https://github.com/IDEA-Research/GroundingDINO
+    license: Apache-2.0
+    caveat: "Условия конкретных весов и обучающих наборов проверяются отдельно."
+  - id: mae-reference
+    kind: code
+    url: https://github.com/facebookresearch/mae
+    license: CC-BY-NC-4.0
+    caveat: "Не копировать в Apache-2.0 проект без сохранения условий и проверки совместимости."

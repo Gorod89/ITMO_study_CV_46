@@ -1,0 +1,36 @@
+name: Предложить учебный материал
+description: Новая тема, статья, лабораторная или улучшение методики
+title: "[Содержание] "
+labels: ["content"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Учебная проблема
+      description: Какого измеримого результата сейчас не достигает студент?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Первичные источники
+      description: Публикации, официальный код, лицензии кода/весов/данных.
+    validations:
+      required: true
+  - type: textarea
+    id: smoke
+    attributes:
+      label: CPU smoke
+      description: Как проверить полный контракт за минуты без закрытых ресурсов?
+    validations:
+      required: true
+  - type: dropdown
+    id: maturity
+    attributes:
+      label: Стадия
+      options:
+        - Candidate
+        - Watchlist
+        - Stable (есть доказательства прохождения release gate)
+    validations:
+      required: true

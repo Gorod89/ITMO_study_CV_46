@@ -1,0 +1,57 @@
+schema_version: 1
+last_reviewed: 2026-07-29
+datasets:
+  - id: procedural-shapes-smoke
+    version: "1"
+    status: stable
+    tasks: [classification, segmentation, detection]
+    source:
+      type: generated
+      generator: scripts/generate_smoke_data.py
+    license:
+      data: CC0-1.0
+      annotations: CC0-1.0
+    splits:
+      strategy: generated-disjoint
+      seed: 42
+      train: 32
+      validation: 8
+      test: 8
+    pii: none
+    card: cards/procedural-shapes-smoke.md
+
+  - id: cifar-10
+    version: "python"
+    status: candidate
+    tasks: [classification, transfer-learning]
+    source:
+      url: https://www.cs.toronto.edu/~kriz/cifar.html
+      adapter: torchvision.datasets.CIFAR10
+    license:
+      data: "См. официальную страницу набора; подтвердить перед стабильным релизом."
+    checksum:
+      sha256: null
+      required_before_full: true
+    splits:
+      strategy: official-train-test-with-seeded-validation
+      seed: 42
+    pii: none-known
+    card: cards/cifar-10.md
+
+  - id: hard-hat-workers
+    version: "3"
+    status: candidate
+    tasks: [detection, segmentation]
+    source:
+      url: https://universe.roboflow.com/joseph-nelson/hard-hat-workers
+    license:
+      data: Public Domain
+      verify_at_download: true
+    checksum:
+      sha256: null
+      required_before_full: true
+    splits:
+      strategy: scene-level-manifest
+      seed: 42
+    pii: possible-faces
+    card: cards/hard-hat-workers.md
